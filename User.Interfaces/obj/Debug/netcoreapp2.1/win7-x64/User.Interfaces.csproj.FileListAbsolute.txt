@@ -1,0 +1,12 @@
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\bin\Debug\netcoreapp2.1\win7-x64\User.Interfaces.deps.json
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\bin\Debug\netcoreapp2.1\win7-x64\User.Interfaces.dll
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\bin\Debug\netcoreapp2.1\win7-x64\User.Interfaces.pdb
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\bin\Debug\netcoreapp2.1\win7-x64\Models.dll
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\bin\Debug\netcoreapp2.1\win7-x64\Models.pdb
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.csprojAssemblyReference.cache
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.AssemblyInfoInputs.cache
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.AssemblyInfo.cs
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.csproj.CopyComplete
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.dll
+C:\Users\cray-\Desktop\SocialMedia\User.Interfaces\obj\Debug\netcoreapp2.1\win7-x64\User.Interfaces.pdb
