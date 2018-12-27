@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.ServiceFabric.Actors;
 using Microsoft.ServiceFabric.Actors.Client;
 using Models;
-using Newtonsoft.Json;
 using User.Interfaces;
+using User.Users;
 
 namespace Front.Controllers
 {
@@ -16,75 +13,56 @@ namespace Front.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        // GET: api/Users
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("/api/users/chunk/{id}")]
+        public async Task<JsonResult> GetUserChunk(long id)
         {
-            return new string[] { "value1", "value2" };
+            // Get actor
+            IUser u = UserActorManager.createActor(id);
+            return new JsonResult(await u.GetUserChunk());
         }
 
-        // GET: api/Users/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("/api/users/main/{id}")]
+        public async Task<JsonResult> GetUserMain(long id)
         {
-            return "value";
+            // Get actor
+            IUser u = UserActorManager.createActor(id);
+            return new JsonResult(await u.GetUserMain());
+        }
+
+        [HttpGet("/api/users/extended/{id}")]
+        public async Task<JsonResult> GetExtendedUser(long id)
+        {
+            // Get actor
+            IUser u = UserActorManager.createActor(id);
+            return new JsonResult(await u.GetExtendedUser());
+        }
+
+        [HttpGet("/api/users/model/{id}")]
+        public async Task<JsonResult> GetUserModel(long id)
+        {
+            // Get actor
+            IUser u = UserActorManager.createActor(id);
+            return new JsonResult(await u.GetUserModel());
         }
 
         // POST: api/Users
         [HttpPost]
         public async Task<JsonResult> Post([FromBody] UserModel userModel)
         {
-            // Create User Chunk
-            UserChunk userChunk = new UserChunk
-            {
-                email = userModel.UserChunk.email,
-            };
-
-            // Create User Main
-            UserMain userMain = new UserMain
-            {
-                bio = userModel.UserMain.bio,
-                firstName = userModel.UserMain.firstName,
-                handle = userModel.UserMain.handle,
-                lastName = userModel.UserMain.lastName,
-                totalFollowers = 0,
-                totalLikes = 0,
-                totalPosts = 0,
-                userId = userChunk.userId
-            };
-
-            // Create Extened User
-            ExtendedUser extendedUser = new ExtendedUser
-            {
-                birthday = userModel.ExtendedUser.birthday,
-                created = DateTime.Now,
-                password = ExtendedUser.hashPassword(userModel.ExtendedUser.password),
-                phone = userModel.ExtendedUser.phone,
-                updated = DateTime.Now,
-                userId = userChunk.userId                
-            };
-
-            UserModel newUser = new UserModel
-            {
-                UserChunk = userChunk,
-                UserMain = userMain,
-                ExtendedUser = extendedUser
-            };
+            UserModel newUser = await UserActorManager.createUser(userModel);
 
             // Validate data
             if (!UserModel.userIsValid(newUser))
             {
                 // Throw error
             }
+            
+            // Send to database to create userId
 
             // Create actor and save data
             ActorId actorId = new ActorId(userModel.UserChunk.userId);
-            IUser myActor = ActorProxy.Create<IUser>(actorId, new Uri("fabric:/SocialMedia/UserActorService"));
-            //await myActor.SaveUserInfo(newUser);
-            await myActor.Save("userinfo", newUser);
-
-            // Send to database queue
-            await myActor.sendToQueue("usercreated", JsonConvert.SerializeObject(newUser));
+            IUser u = ActorProxy.Create<IUser>(actorId, new Uri("fabric:/SocialMedia/UserActorService"));
+            await u.CreateUser(newUser);           
 
             return new JsonResult(newUser);
         }
@@ -93,18 +71,14 @@ namespace Front.Controllers
         [HttpPut("{id}")]
         public async Task Put(long id)
         {
-            ActorId actorId = new ActorId(id);
-            IUser myActor = ActorProxy.Create<IUser>(actorId, new Uri("fabric:/SocialMedia/UserActorService"));
-            var asdf = await myActor.GetUserInfo();
+
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpGet("{id}")]
         public async Task Delete(long id)
         {
-            ActorId actorId = new ActorId(id);
-            IUser myActor = ActorProxy.Create<IUser>(actorId, new Uri("fabric:/SocialMedia/UserActorService"));
-            var asdf = await myActor.GetUserInfo();
+
         }
     }
 }

@@ -17,12 +17,14 @@ namespace User.Interfaces
     /// </summary>
     public interface IUser : IActor
     {
-        Task Save<T>(string key, T arg);
+        Task sendToQueue(string queueName, string data);
 
         // USER METHODS
-        Task SaveUserInfo(UserModel userModel);
-        Task<UserModel> GetUserInfo();
-        Task sendToQueue(string queueName, string data);
+        Task CreateUser(UserModel userModel);
+        Task<UserChunk> GetUserChunk();
+        Task<UserMain> GetUserMain();
+        Task<ExtendedUser> GetExtendedUser();
+        Task<UserModel> GetUserModel();
 
         // POST METHODS
         Task<Post> CreatePost(Post post);

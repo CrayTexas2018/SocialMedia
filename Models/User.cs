@@ -10,7 +10,7 @@ namespace Models
         [Key]
         public long userId { get; set; }
 
-        public string email { get; set; }
+        public string handle { get; set; }
     }
 
     public class UserMain
@@ -22,9 +22,7 @@ namespace Models
 
         public long totalPosts { get; set; }
 
-        public long totalFollowers { get; set; }
-
-        public string handle { get; set; }
+        public long totalFollowers { get; set; }        
 
         public string firstName { get; set; }
 
@@ -37,6 +35,8 @@ namespace Models
     {
         public long userId { get; set; }
         public UserChunk UserChunk { get; set; }
+
+        public string email { get; set; }
 
         public string password { get; set; }
 

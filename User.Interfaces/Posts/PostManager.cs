@@ -8,7 +8,6 @@ namespace User.Posts
 {
     public class PostManager
     {
-        /*
         public async Task<Post> createPost(Post post)
         {
             // Create a new post
@@ -24,7 +23,8 @@ namespace User.Posts
                 userId = post.userId,
                 videos = post.videos
             };
+
+            return await Task.FromResult(newPost);
         }
-        */
     }
 }

@@ -33,26 +33,49 @@ namespace User
         {
         }
 
-        public Task Save<T>(string key, T arg)
-        {
-            return StateManager.SetStateAsync(key, arg);
-        }
-
-        #region User
-        public Task<UserModel> GetUserInfo()
-        {
-            return StateManager.GetStateAsync<UserModel>("userinfo");
-        }
-
-        public Task SaveUserInfo(UserModel userModel)
-        {
-            return StateManager.SetStateAsync<UserModel>("userinfo", userModel);
-        }
-
+        #region Queue
         public Task sendToQueue(string queueName, string data)
         {
             return ServiceBusHelper.SendMessageAsync(queueName, data);
         }
+        #endregion
+
+        #region User
+        public Task<UserChunk> GetUserChunk()
+        {
+            return StateManager.GetStateAsync<UserChunk>("UserChunk");
+        }
+
+        public Task<UserMain> GetUserMain()
+        {
+            return StateManager.GetStateAsync<UserMain>("UserMain");
+        }
+
+        public Task<ExtendedUser> GetExtendedUser()
+        {
+            return StateManager.GetStateAsync<ExtendedUser>("ExtendedUser");
+        }
+
+        public Task<UserModel> GetUserModel()
+        {
+            UserModel m = new UserModel
+            {
+                UserChunk = GetUserChunk().Result,
+                UserMain = GetUserMain().Result,
+                ExtendedUser = GetExtendedUser().Result
+            };
+
+            return Task.FromResult(m);
+        }
+
+        public Task CreateUser(UserModel userModel)
+        {
+            StateManager.SetStateAsync("UserChunk", userModel.UserChunk);
+            StateManager.SetStateAsync("UserMain", userModel.UserMain);
+            StateManager.SetStateAsync("ExtendedUser", userModel.ExtendedUser);
+
+            return Task.FromResult(true);
+        }        
         #endregion
 
         #region Posts
