@@ -32,7 +32,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseWorker\DatabaseWorker.csproj" />
     <ProjectReference Include="..\Front\Front.csproj" />
     <ProjectReference Include="..\User\User.csproj" />
   </ItemGroup>

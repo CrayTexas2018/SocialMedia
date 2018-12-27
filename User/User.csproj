@@ -22,4 +22,8 @@
     <ProjectReference Include="..\User.Interfaces\User.Interfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Comments\" />
+  </ItemGroup>
+
 </Project>

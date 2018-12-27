@@ -80,7 +80,8 @@ namespace Front.Controllers
             // Create actor and save data
             ActorId actorId = new ActorId(userModel.UserChunk.userId);
             IUser myActor = ActorProxy.Create<IUser>(actorId, new Uri("fabric:/SocialMedia/UserActorService"));
-            await myActor.SaveUserInfo(newUser);
+            //await myActor.SaveUserInfo(newUser);
+            await myActor.Save("userinfo", newUser);
 
             // Send to database queue
             await myActor.sendToQueue("usercreated", JsonConvert.SerializeObject(newUser));

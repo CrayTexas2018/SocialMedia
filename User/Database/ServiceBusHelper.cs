@@ -15,19 +15,11 @@ namespace User.Database
         public static async Task SendMessageAsync(string queueName, string data)
         {
             // Create queue client
-            try
-            {
-                var csb = new ServiceBusConnectionStringBuilder(ServiceBusConnectionString);
-                queueClient = new QueueClient(ServiceBusConnectionString, queueName);
+            queueClient = new QueueClient(ServiceBusConnectionString, queueName);
 
-                string messageBody = data;
-                var message = new Message(Encoding.UTF8.GetBytes(messageBody));
-                await queueClient.SendAsync(message);
-            }
-            catch (Exception e)
-            {
-
-            }           
+            string messageBody = data;
+            var message = new Message(Encoding.UTF8.GetBytes(messageBody));
+            await queueClient.SendAsync(message);
         }
     }
 }

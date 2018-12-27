@@ -33,19 +33,43 @@ namespace User
         {
         }
 
+        public Task Save<T>(string key, T arg)
+        {
+            return StateManager.SetStateAsync(key, arg);
+        }
+
+        #region User
         public Task<UserModel> GetUserInfo()
         {
-            return this.StateManager.GetStateAsync<UserModel>("userinfo");
+            return StateManager.GetStateAsync<UserModel>("userinfo");
         }
 
         public Task SaveUserInfo(UserModel userModel)
         {
-            return this.StateManager.SetStateAsync<UserModel>("userinfo", userModel);
+            return StateManager.SetStateAsync<UserModel>("userinfo", userModel);
         }
 
         public Task sendToQueue(string queueName, string data)
         {
             return ServiceBusHelper.SendMessageAsync(queueName, data);
         }
+        #endregion
+
+        #region Posts
+        public Task<Post> CreatePost(Post post)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeletePost(string postId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Post> GetPost(string postId)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }
